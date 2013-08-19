@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:background="#000000"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1.9"
+            android:gravity="center" >
+
+            <Button
+                android:id="@+id/logout"
+                android:layout_width="80dp"
+                android:layout_height="24dp"
+                android:background="@drawable/buttonroundlogout"
+                android:ellipsize="end"
+                android:onClick="onClickRecordingStudio"
+                android:text="Studio"
+                android:layout_marginLeft="8dp"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:text="My Recordings"
+                android:textColor="#FFFFFF"
+                android:textSize="23sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="2.1"
+            android:gravity="center" >
+
+            <Button
+                android:id="@+id/logout"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:background="@drawable/buttonroundlogout"
+                android:ellipsize="end"
+                android:onClick="onClickLogout"
+                android:text="Logout"
+                android:singleLine="true"
+                android:padding="2dp"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:background="#6F8290"
+        android:paddingTop="10dp" >
+
+        <ListView
+            android:id="@+id/udiniList"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="10.0sp"
+            android:fitsSystemWindows="true" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,14 @@
+eclipse.preferences.version=1
+encoding//src/com/charmsoffice/mobilestudio/activity/AccompanimentListActivity.java=UTF-8
+encoding//src/com/charmsoffice/mobilestudio/activity/AssignmentListActivity.java=UTF-8
+encoding//src/com/charmsoffice/mobilestudio/activity/CharmsActivity.java=UTF-8
+encoding//src/com/charmsoffice/mobilestudio/activity/CharmsOfficeWebViewActivity.java=UTF-8
+encoding//src/com/charmsoffice/mobilestudio/activity/LoginActivity.java=UTF-8
+encoding//src/com/charmsoffice/mobilestudio/activity/PlayerActivity.java=UTF-8
+encoding//src/com/charmsoffice/mobilestudio/activity/RecordListActivity.java=UTF-8
+encoding//src/com/charmsoffice/mobilestudio/activity/RecordingStudioActivity.java=UTF-8
+encoding//src/com/charmsoffice/mobilestudio/data/CommunicationLayer.java=UTF-8
+encoding//src/com/charmsoffice/mobilestudio/data/Constants.java=UTF-8
+encoding//src/com/charmsoffice/mobilestudio/networkoperation/JSONParser.java=UTF-8
+encoding//src/com/charmsoffice/mobilestudio/util/AssignmentList.java=UTF-8
+encoding/<project>=UTF-8

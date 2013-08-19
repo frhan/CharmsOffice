@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Charms</string>
+    <string name="description1">Charleston Train School</string>
+    <string name="description2">Chair Test Week 3</string>
+    <string name="description3">Play measures 22-28 at the proper tempo, say your name before and after you record. You may use the accompaniment track if you want.</string>
+    <string name="alert_ok">Ok</string>
+    <string name="alert_cancel">Cancel</string>
+    <string name="alert_write_name_title">File Name</string>
+    <string name="alert_write_name_message">Please enter a file name</string>
+    <string name="hello_world">Hello world!</string>
+
+    <color name="greenStart">#ff33dd44</color>
+    <color name="greenMid">#ff0A8815</color>
+    <color name="greenEnd">#ff1da130</color>
+
+</resources>

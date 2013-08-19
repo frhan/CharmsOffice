@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3.5dp"
+        android:layout_marginTop="3dp"
+        android:background="#000000"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1.8"
+            android:gravity="center" >
+
+            <Button
+                android:id="@+id/btn_back"
+                android:layout_width="86dp"
+                android:layout_height="24dp"
+                android:background="@drawable/buttonroundlogout"
+                android:ellipsize="end"
+                android:onClick="onClickRecordingStudio"
+                android:text="Studio"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1.3"
+            android:gravity="center" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:text="Play/Record"
+                android:textColor="#FFFFFF"
+                android:textSize="23sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="2.1"
+            android:gravity="center" >
+
+            <Button
+                android:id="@+id/logout"
+                android:layout_width="66dp"
+                android:layout_height="24dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/buttonroundlogout"
+                android:ellipsize="end"
+                android:onClick="onClickLogout"
+                android:text="Logout"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/body"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/header"
+        android:background="#6F8290"
+        android:orientation="vertical"
+        android:padding="2dip" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/accountrounded"
+            android:orientation="vertical"
+            android:padding="2dip" >
+
+            <TextView
+                android:id="@+id/tv_player_school_name"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:textColor="@android:color/black"
+                android:textSize="23sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_username"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:text="Alwaysroomfor Jello"
+                android:textColor="@android:color/black"
+                android:textSize="23sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_record"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginTop="1dip"
+                android:gravity="left"
+                android:singleLine="true"
+                android:text="Record"
+                android:textColor="@android:color/black"
+                android:textSize="22sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/selectedfile"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginTop="1dip"
+                android:gravity="left"
+                android:singleLine="false"
+                android:text="Test"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_comment"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dip"
+                android:gravity="left"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/tv_comment_recordlist"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dip"
+                android:gravity="left"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/StatusTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="1dip"
+                android:textColor="#FF0000" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="33dp"
+                android:layout_marginTop="2dp"
+                android:background="#000000" >
+
+                <view
+                    android:id="@+id/bar_level_drawable_view"
+                    android:layout_width="fill_parent"
+                    android:layout_height="33dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginBottom="2dp"
+                    class="com.charmsoffice.mobilestudio.data.BarLevelDrawable" >
+                </view>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="4dp"
+                android:background="@android:drawable/screen_background_light"
+                android:gravity="center"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@+id/back"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="onClickRewindButton"
+                    android:src="@drawable/rewind_disabled" />
+
+                <ImageView
+                    android:id="@+id/play"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="onClickPlayButton"
+                    android:src="@drawable/play_ready" />
+
+                <ImageView
+                    android:id="@+id/record"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="onClickRecordButton"
+                    android:src="@drawable/record_view_selector" />
+
+                <ImageView
+                    android:id="@+id/stop"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="onClickStopButton"
+                    android:src="@drawable/stop_ready" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_record_time"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="1dip"
+                android:text="Recording"
+                android:textColor="#FF0000"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:id="@+id/iv_trash"
+                        android:layout_width="65dip"
+                        android:layout_height="65dp"
+                        android:layout_marginTop="10dp"
+                        android:onClick="onClickTrashButton"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/trash" />
+
+                    <TextView
+                        android:id="@+id/tv_trash"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="Trash"
+                        android:textColor="#000000"
+                        android:textSize="17sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:id="@+id/iv_upload"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:onClick="onClickUploadButton"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/upload2" />
+
+                    <TextView
+                        android:id="@+id/tv_upload"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:text="Upload"
+                        android:textColor="#000000"
+                        android:textSize="17sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" >
+
+                <TextView
+                    android:id="@+id/txt_auto_lock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:text="Auto Lock"
+                    android:textColor="#000000"
+                    android:textSize="17sp" />
+
+                <ToggleButton
+                    android:id="@+id/tb_auto_lock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/txt_auto_lock"
+                    android:checked="false" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
