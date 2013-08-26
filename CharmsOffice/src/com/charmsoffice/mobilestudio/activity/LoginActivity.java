@@ -153,9 +153,11 @@ public class LoginActivity extends Activity {
 		else {
 			try {
 				if (userName.getText().toString().trim().length() > 0
-						&& userPassword.getText().toString().trim().length() > 0) {
+						&& userPassword.getText().toString().trim().length() > 0) 
+				{
+					//String userSchoolName = userName.getText().toString().trim().replace(" ", "%20d");
 					String respose = CommunicationLayer.getConfirmation(
-							userName.getText().toString(), userPassword
+							userName.getText().toString().trim(), userPassword
 							.getText().toString(), "logon");
 					JSONObject json = new JSONObject(respose);
 

@@ -16,7 +16,7 @@ public class CommunicationLayer {
 		postData.add((NameValuePair) new BasicNameValuePair("action", action));
 
 		String serverResponse = WebServerOperation.sendHTTPPostRequestToServer("https://www.charmsoffice" +
-				".com/charms/mobileStudio/mobileStudioExchange.asp?username=" + userName + "&sid=" + sid
+				".com/charms/mobileStudio/mobileStudioExchange.asp?username=" + userName.replace(" ", "%20") + "&sid=" + sid
 				+ "&action=" + action, postData, true);
 		return serverResponse;
 	}
