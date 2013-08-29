@@ -1,5 +1,6 @@
 package com.charmsoffice.mobilestudio.activity;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
@@ -11,6 +12,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -62,12 +64,12 @@ public class LoginActivity extends Activity {
 
 
 		setContentView(R.layout.login);
-
+		
 
 		userName = (EditText) findViewById(R.id.schoolcode);
 
 		userPassword = (EditText) findViewById(R.id.studentid);
-		mSharedPrefference = getSharedPreferences(Constants.PREFS_NAME,
+		mSharedPrefference = getApplicationContext().getSharedPreferences(Constants.PREFS_NAME,
 				MODE_PRIVATE);
 
 		String usernameName = mSharedPrefference.getString(PREFS_USERNAME, "");
@@ -75,8 +77,7 @@ public class LoginActivity extends Activity {
 		Constants.USER_FULL_NAME=mSharedPrefference.getString(PREFS_USER_FULLNAME, "");
 		Log.v("", "msg   "+Constants.USER_FULL_NAME);
 
-		boolean isRemember = mSharedPrefference.getBoolean(PREFS_REMEMBER,
-				false);
+		boolean isRemember = mSharedPrefference.getBoolean(PREFS_REMEMBER,false);
 
 		rememberBtn = (ToggleButton) findViewById(R.id.rememberBtn);
 
@@ -114,15 +115,15 @@ public class LoginActivity extends Activity {
 		IntentFilter intentFilter = new IntentFilter();
 		intentFilter.addAction("com.package.ACTION_LOGOUT");
 		registerReceiver(receiver, intentFilter);
-
-
 	}
+	
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 		unregisterReceiver(receiver);
-		
+
 	}
+
 	BroadcastReceiver receiver = new BroadcastReceiver() {
 
 		@Override
@@ -132,7 +133,7 @@ public class LoginActivity extends Activity {
 			finish();
 		}
 	};
-	
+
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -143,121 +144,34 @@ public class LoginActivity extends Activity {
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 
+
 	private void performDone()
 	{
 
 		if (!InternetConnectivity.isConnectedToInternet(this)) {
 			CharmOfficeApp.getInstance().openInternetSettingsActivity(this);
 		}
+		else 
+		{
 
-		else {
-			try {
-				if (userName.getText().toString().trim().length() > 0
-						&& userPassword.getText().toString().trim().length() > 0) 
-				{
-					//String userSchoolName = userName.getText().toString().trim().replace(" ", "%20d");
-					String respose = CommunicationLayer.getConfirmation(
-							userName.getText().toString().trim(), userPassword
-							.getText().toString(), "logon");
-					JSONObject json = new JSONObject(respose);
-
-					/*	String str = json.getString("info");
-					JSONObject jsonFirstLastName = new 	JSONObject(str);
-
-					Constants.USER_FIRST_NAME = jsonFirstLastName.getString("firstName");
-					Log.v("Constants.USER_FIRST_NAME", Constants.USER_FIRST_NAME);
-
-					Constants.USER_LAST_NAME = jsonFirstLastName.getString("lastName");
-					Log.v("Constants.USER_LAST_NAME ",Constants.USER_LAST_NAME );
-
-					Constants.USER_FULL_NAME=Constants.USER_FIRST_NAME+" "+Constants.USER_LAST_NAME ;*/
-
-
-
-
-					Log.v("result name  is :", "____" + json.getString("info"));
-
-					//Log.v("result name  is :", "____" + jArray.getString(1));
-
-					Log.v("result is :", "____" + json.getString("result"));
-
-					if (json.getString("result").equalsIgnoreCase("success")) {
-						Editor editor = mSharedPrefference.edit();
-
-
-						String str = json.getString("info");
-						JSONObject jsonFirstLastName = new 	JSONObject(str);
-
-						Constants.USER_FIRST_NAME = jsonFirstLastName.getString("firstName");
-						Log.v("Constants.USER_FIRST_NAME", Constants.USER_FIRST_NAME);
-
-						Constants.USER_LAST_NAME = jsonFirstLastName.getString("lastName");
-						Log.v("Constants.USER_LAST_NAME ",Constants.USER_LAST_NAME );
-
-						Constants.USER_FULL_NAME=Constants.USER_FIRST_NAME+" "+Constants.USER_LAST_NAME ;
-						editor.putString(PREFS_USER_FULLNAME, Constants.USER_FULL_NAME);
-						
-						Constants.SCHOOL_NAME = jsonFirstLastName.getString("school");
-						editor.putString(PREFS_SCHOOL_NAME, Constants.SCHOOL_NAME);	
-						
-						Constants.SCHOOL_CODE = jsonFirstLastName.getString("schcode");
-						editor.putString(PREFS_SCHOOL_CODE, Constants.SCHOOL_CODE);	
-
-
-
-						Constants.USER_NAME = userName.getText().toString()
-								.trim();
-						Constants.USER_PASSWORD = userPassword.getText()
-								.toString().trim();
-
-						mSharedPrefference = getSharedPreferences(
-								Constants.PREFS_NAME, MODE_PRIVATE);
-
-						editor.putString(PREFS_USERNAME, Constants.USER_NAME);
-						editor.putString(PREFS_PASSWORD,
-								Constants.USER_PASSWORD);
-						editor.commit();
-						openSuccessDialog("Successfully Logged in!");
-
-					}
-
-					else {
-						CharmOfficeApp
-						.getInstance()
-						.openErrorDialog(
-								"Either the school code or the password was incorrect",
-								"Account", this);
-					}
-				}
-
-				else {
-					CharmOfficeApp.getInstance().openErrorDialog(
-							"Please enter a username or SID to login", " ",
-							this);
-				}
-
-			} catch (Exception e) {
-				e.printStackTrace();
+			if (userName.getText().toString().trim().length() > 0
+					&& userPassword.getText().toString().trim().length() > 0) 
+			{
+				new LoginTask(userName.getText().toString().trim(), userPassword.getText().toString()).execute();
+			}
+			else {
+				CharmOfficeApp.getInstance().openErrorDialog(
+						"Please enter a username or SID to login", " ",
+						this);
 			}
 		}
-
 	}
+
 	public void onClickDone(View view) 
 	{
 		performDone();
 
 	}
-
-	/*
-	 * public void onClickLogout(View view) { SharedPreferences pref =
-	 * getSharedPreferences(Constants.PREFS_NAME, MODE_PRIVATE);
-	 * 
-	 * //SharedPreferences prefs; // here you get your prefrences by either of
-	 * // two methods Editor editor = pref.edit(); editor.clear();
-	 * editor.commit(); // onBackPressed(); finish();
-	 * 
-	 * }
-	 */
 
 	public void openSuccessDialog(String success_msg) {
 		success_msg = Html.fromHtml(success_msg).toString();
@@ -290,22 +204,124 @@ public class LoginActivity extends Activity {
 		}
 	}
 
-	/*	@Override
-	public void onBackPressed() {
-		// TODO Auto-generated method stub
-		mSharedPrefference = getSharedPreferences(Constants.PREFS_NAME,
-				MODE_PRIVATE);
+	private void parseResponse(String response)
+	{
+		try {
 
-		Editor editor = mSharedPrefference.edit();
-		editor.clear();
-		editor.commit();
+			JSONObject json = new JSONObject(response);
 
-		// SharedPreferences prefs; // here you get your prefrences by either of
 
-		finish();
+			Log.v("result name  is :", "____" + json.getString("info"));
 
-		// System.exit(0);
+			//Log.v("result name  is :", "____" + jArray.getString(1));
 
-	}*/
+			Log.v("result is :", "____" + json.getString("result"));
+
+			if (json.getString("result").equalsIgnoreCase("success"))
+			{
+				Editor editor = mSharedPrefference.edit();
+
+
+				String str = json.getString("info");
+				JSONObject jsonFirstLastName = new 	JSONObject(str);
+
+				Constants.USER_FIRST_NAME = jsonFirstLastName.getString("firstName");
+				Log.v("Constants.USER_FIRST_NAME", Constants.USER_FIRST_NAME);
+
+				Constants.USER_LAST_NAME = jsonFirstLastName.getString("lastName");
+				Log.v("Constants.USER_LAST_NAME ",Constants.USER_LAST_NAME );
+
+				Constants.USER_FULL_NAME=Constants.USER_FIRST_NAME+" "+Constants.USER_LAST_NAME ;
+				editor.putString(PREFS_USER_FULLNAME, Constants.USER_FULL_NAME);
+				Log.v("Constants.FULL_NAME ",Constants.USER_FULL_NAME );
+
+				Constants.SCHOOL_NAME = jsonFirstLastName.getString("school");
+				editor.putString(PREFS_SCHOOL_NAME, Constants.SCHOOL_NAME);	
+
+				Constants.SCHOOL_CODE = jsonFirstLastName.getString("schcode");
+				editor.putString(PREFS_SCHOOL_CODE, Constants.SCHOOL_CODE);	
+
+
+
+				Constants.USER_NAME = userName.getText().toString()
+						.trim();
+				Constants.USER_PASSWORD = userPassword.getText()
+						.toString().trim();
+
+//				mSharedPrefference = getSharedPreferences(
+//						Constants.PREFS_NAME, MODE_PRIVATE);
+
+				editor.putString(PREFS_USERNAME, Constants.USER_NAME);
+				editor.putString(PREFS_PASSWORD,
+						Constants.USER_PASSWORD);
+				editor.commit();
+				openSuccessDialog("Successfully Logged in!");
+			}
+
+			else {
+				CharmOfficeApp
+				.getInstance()
+				.openErrorDialog(
+						"Either the school code or the password was incorrect",
+						"Account", this);
+			}
+
+		} catch (JSONException e) {
+			// TODO: handle exception
+		}
+
+
+	}
+
+	private class LoginTask extends AsyncTask<Void, Void, Void>
+	{
+
+		String userName;
+		String password;
+		String respose; 
+
+		public LoginTask(String username,String password) 
+		{
+			this.userName = username;
+			this.password = password;
+			respose = null;
+		}
+		@Override
+		protected void onPreExecute() 
+		{
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Void doInBackground(Void... params) 
+		{
+			try {
+				respose = CommunicationLayer.getConfirmation(
+						userName, password, "logon");				 
+			} catch (Exception e) {
+				Log.e("Login", e.getMessage());
+				e.printStackTrace();
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result) 
+		{
+			super.onPostExecute(result);
+			if(respose != null)
+			{
+				parseResponse(respose);
+			}
+			else
+			{
+				CharmOfficeApp
+				.getInstance()
+				.openErrorDialog("Something went wrong.Please try again later",
+						"Account",LoginActivity.this);
+			}
+		}
+
+	}
 
 }
